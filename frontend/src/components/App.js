@@ -12,24 +12,30 @@ import PostFormEdit from './PostFormEdit';
 import PostFormNew from './PostFormNew';
 
 const StyledApp = styled.div``;
-const StyledContent = styled.div`
+const StyledContainer = styled.div`
   height: calc(100vh - 60px);
   overflow: scroll;
+`;
+const StyledContent = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
 `;
 
 const App = () => (
   <StyledApp>
     <Header />
-    <StyledContent>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/category/:category" component={Category} />
-        <Route path="/new-post" component={PostFormNew} />
-        <Route path="/post/:id" exact component={Post} />
-        <Route path="/post/:id/edit" component={PostFormEdit} />
-        <Route component={NotFound} />
-      </Switch>
-    </StyledContent>
+    <StyledContainer>
+      <StyledContent>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/category/:category" component={Category} />
+          <Route path="/new-post" component={PostFormNew} />
+          <Route path="/post/:id" exact component={Post} />
+          <Route path="/post/:id/edit" component={PostFormEdit} />
+          <Route component={NotFound} />
+        </Switch>
+      </StyledContent>
+    </StyledContainer>
   </StyledApp>
 );
 

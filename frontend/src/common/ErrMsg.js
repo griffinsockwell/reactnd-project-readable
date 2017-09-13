@@ -10,10 +10,10 @@ const StyledErrorMessage = styled.div`
   }
 `;
 
-const ErrMsg = msg => (
+const ErrMsg = props => (
   <StyledErrorMessage>
     <i className="material-icons">error_outline</i>
-    <span>{msg}</span>
+    <span>{props.msg}</span>
   </StyledErrorMessage>
 );
 

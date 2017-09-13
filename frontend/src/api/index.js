@@ -12,3 +12,8 @@ const headers = {
 };
 
 export const getCategories = () => fetch(`${api}/categories`, { headers });
+
+export const getPosts = () => fetch(`${api}/posts`, { headers });
+
+export const getPostsForCategory = category =>
+  fetch(`${api}/${category}/posts`, { headers });

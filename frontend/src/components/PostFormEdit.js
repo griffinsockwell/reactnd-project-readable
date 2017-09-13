@@ -1,7 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const StyledPostForm = styled.form``;
 
 const PostFormEdit = props => (
-  <form>Editing post: {props.match.params.id}</form>
+  <StyledPostForm>Editing post: {props.match.params.id}</StyledPostForm>
 );
 
 export default PostFormEdit;

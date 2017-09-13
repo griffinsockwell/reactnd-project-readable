@@ -1,5 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
 
-const Category = props => <div>Category: {props.match.params.category}</div>;
+const StyledCategory = styled.div``;
+
+const Category = props => (
+  <StyledCategory>Category: {props.match.params.category}</StyledCategory>
+);
 
 export default Category;

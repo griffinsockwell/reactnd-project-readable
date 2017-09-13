@@ -1,5 +1,8 @@
 import React from 'react';
+import styled from 'styled-components';
 
-const Home = () => <div>Home route</div>;
+const StyledHome = styled.div``;
+
+const Home = () => <StyledHome>Home route</StyledHome>;
 
 export default Home;

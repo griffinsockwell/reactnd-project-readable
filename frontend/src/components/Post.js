@@ -1,5 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
 
-const Post = props => <div>Viewing post: {props.match.params.id}</div>;
+const StyledPost = styled.div``;
+
+const Post = props => (
+  <StyledPost>Viewing post: {props.match.params.id}</StyledPost>
+);
 
 export default Post;

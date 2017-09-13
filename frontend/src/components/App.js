@@ -1,6 +1,8 @@
+// node_modules
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import styled from 'styled-components';
+// components
 import Category from './Category';
 import Header from './Header';
 import Home from './Home';

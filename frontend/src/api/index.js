@@ -17,3 +17,8 @@ export const getPosts = () => fetch(`${api}/posts`, { headers });
 
 export const getPostsForCategory = category =>
   fetch(`${api}/${category}/posts`, { headers });
+
+export const getPost = id => fetch(`${api}/posts/${id}`, { headers });
+
+export const getCommentsForPost = id =>
+  fetch(`${api}/posts/${id}/comments`, { headers });

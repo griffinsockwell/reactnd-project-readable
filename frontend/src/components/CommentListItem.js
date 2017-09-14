@@ -1,10 +1,6 @@
-// node_modules
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import format from 'date-fns/format';
-// utils
-import getColor from '../utils/getColor';
 
 const StyledListItem = styled.li`
   padding: 10px;
@@ -14,28 +10,10 @@ const StyledListItem = styled.li`
     background-color: #fafafa;
   }
 `;
-const StyledPostLink = styled(NavLink)`
+const StyledCommentBody = styled.div`
   text-decoration: none;
   font-weight: 700;
   color: #212121;
-  transition: all 0.2s;
-  :hover {
-    color: #ff7a37;
-  }
-`;
-const StyledCategoryLink = styled(NavLink)`
-  border: 2px solid ${props => getColor(props.name)};
-  border-radius: 2px;
-  margin: 3px;
-  padding: 3px;
-  text-decoration: none;
-  font-size: 10px;
-  font-weight: 700;
-  color: #4a4a4a;
-  transition: all 0.2s;
-  :hover {
-    color: ${props => getColor(props.name)};
-  }
 `;
 const StyledVoteCount = styled.div`
   display: flex;
@@ -57,7 +35,7 @@ const StyledVoteCount = styled.div`
     color: #ff7a37;
   }
 `;
-const StyledPostInfo = styled.div`
+const StyledCommentInfo = styled.div`
   flex: 1;
   span {
     color: #9b9b9b;
@@ -72,14 +50,14 @@ const StyledDate = styled.div`
   text-transform: uppercase;
   span {
     color: #9b9b9b;
-    font-size: 16px;
+    font-size: 15px;
   }
   div {
     color: #4a4a4a;
-    font-size: 20px;
+    font-size: 18px;
   }
 `;
-const StyledEdit = styled(NavLink)`
+const StyledEdit = styled.button`
   margin-left: 10px;
   color: #9b9b9b;
   border: none;
@@ -100,42 +78,36 @@ const StyledDelete = styled.button`
   }
 `;
 
-const PostListItem = props => {
-  const { post } = props;
+const CommentListItem = props => {
+  const { comment } = props;
   return (
     <StyledListItem>
       <StyledVoteCount>
         <button title="vote up">
           <i className="material-icons">keyboard_arrow_up</i>
         </button>
-        <span>{post.voteScore}</span>
+        <span>{comment.voteScore}</span>
         <button title="vote down">
           <i className="material-icons">keyboard_arrow_down</i>
         </button>
       </StyledVoteCount>
 
-      <StyledPostInfo>
+      <StyledCommentInfo>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <StyledPostLink to={`/post/${post.id}`}>{post.title}</StyledPostLink>
-          <StyledEdit to={`/post/${post.id}/edit`}>
+          <StyledCommentBody>{comment.body}</StyledCommentBody>
+          <StyledEdit>
             <i className="material-icons">edit</i>
           </StyledEdit>
         </div>
         <div>
-          <span>post by {post.author}</span>{' '}
-          <StyledCategoryLink
-            to={`/category/${post.category}`}
-            name={post.category}
-          >
-            {post.category.toUpperCase()}
-          </StyledCategoryLink>
+          <span>comment by {comment.author}</span>
         </div>
-      </StyledPostInfo>
+      </StyledCommentInfo>
 
       <StyledDate>
-        <span>{format(new Date(post.timestamp), 'ddd')}</span>
-        <div>{format(new Date(post.timestamp), 'MMM D')}</div>
-        <span>{format(new Date(post.timestamp), 'YYYY')}</span>
+        <span>{format(new Date(comment.timestamp), 'ddd')}</span>
+        <div>{format(new Date(comment.timestamp), 'MMM D')}</div>
+        <span>{format(new Date(comment.timestamp), 'YYYY')}</span>
       </StyledDate>
 
       <StyledDelete title="delete post">
@@ -145,4 +117,4 @@ const PostListItem = props => {
   );
 };
 
-export default PostListItem;
+export default CommentListItem;

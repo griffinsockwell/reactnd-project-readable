@@ -12,6 +12,9 @@ import {
 } from '../actions';
 // common
 import ErrMsg from '../common/ErrMsg';
+import FormInput from '../common/FormInput';
+import FormSubmit from '../common/FormSubmit';
+import FormTextarea from '../common/FormTextarea';
 import Loading from '../common/Loading';
 
 const StyledNew = styled.div`
@@ -25,67 +28,6 @@ const StyledPostForm = styled.form`
   margin: 0 10px;
   background-color: #f1f1f1;
   border-radius: 8px;
-`;
-const StyledFormGroup = styled.div`
-  margin-bottom: 10px;
-  label {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    color: #4a4a4a;
-  }
-  input {
-    border: none;
-    border-radius: 4px;
-    width: 100%;
-    height: 44px;
-    padding-left: 10px;
-    font-size: 16px;
-  }
-  select {
-    border: none;
-    border-radius: 4px;
-    width: 100%;
-    height: 44px;
-    font-size: 16px;
-    background-color: #fff;
-  }
-  option:disabled {
-    color: #9b9b9b;
-  }
-  textarea {
-    border: none;
-    border-radius: 4px;
-    width: 100%;
-    height: 132px;
-    padding: 10px;
-    font-size: 16px;
-    resize: vertical;
-  }
-`;
-const StyledSubmit = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 4px;
-  width: 100%;
-  height: 44px;
-  background-color: #ff7a37;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  transition: all 0.2s;
-  span {
-    margin: 0 10px;
-  }
-  :hover {
-    background-color: #e66e32;
-  }
-  :disabled {
-    opacity: 0.8;
-    cursor: not-allowed;
-  }
 `;
 const StyledCentered = styled.div`
   display: flex;
@@ -157,46 +99,36 @@ class PostFormEdit extends React.Component {
           <h2>EDIT POST</h2>
 
           <StyledPostForm onSubmit={this.handleSubmit}>
-            <StyledFormGroup>
-              <label htmlFor="editPostAuthor">Author</label>
-              <input
-                type="text"
-                id="editPostAuthor"
-                value={post.author}
-                disabled
-              />
-            </StyledFormGroup>
+            <FormInput
+              label="Author"
+              htmlFor="editPostAuthor"
+              value={post.author}
+              disabled
+            />
 
-            <StyledFormGroup>
-              <label htmlFor="editPostTitle">Title</label>
-              <input
-                type="text"
-                id="editPostTitle"
-                name="title"
-                defaultValue={post.title || title}
-                onChange={this.handleChange}
-              />
-            </StyledFormGroup>
+            <FormInput
+              label="Category"
+              htmlFor="editPostCategory"
+              value={post.category}
+              disabled
+            />
 
-            <StyledFormGroup>
-              <label htmlFor="editPostCategory">Category</label>
-              <input
-                type="text"
-                id="editPostCategory"
-                value={post.category}
-                disabled
-              />
-            </StyledFormGroup>
+            <FormInput
+              label="Title"
+              htmlFor="editPostTitle"
+              name="title"
+              defaultValue={post.title || title}
+              onChange={this.handleChange}
+            />
 
-            <StyledFormGroup>
-              <label htmlFor="editPostBody">Body</label>
-              <textarea
-                id="editPostBody"
-                name="body"
-                defaultValue={post.body || body}
-                onChange={this.handleChange}
-              />
-            </StyledFormGroup>
+            <FormTextarea
+              label="Body"
+              htmlFor="editPostBody"
+              name="body"
+              defaultValue={post.body || body}
+              onChange={this.handleChange}
+              large
+            />
 
             {errorSubmit && (
               <StyledCenteredError>
@@ -204,10 +136,7 @@ class PostFormEdit extends React.Component {
               </StyledCenteredError>
             )}
 
-            <StyledSubmit type="submit">
-              <span>Edit post</span>
-              {submitting && <Loading color="#fff" />}
-            </StyledSubmit>
+            <FormSubmit text="Edit post" submitting={submitting} />
           </StyledPostForm>
         </StyledNew>
       );

@@ -10,63 +10,15 @@ import {
 } from '../actions';
 // common
 import ErrMsg from '../common/ErrMsg';
-import Loading from '../common/Loading';
+import FormInput from '../common/FormInput';
+import FormSubmit from '../common/FormSubmit';
+import FormTextarea from '../common/FormTextarea';
 
 const StyledNew = styled.div`margin: 10px;`;
 const StyledCommentForm = styled.form`
   padding: 10px;
   background-color: #f1f1f1;
   border-radius: 8px;
-`;
-const StyledFormGroup = styled.div`
-  margin-bottom: 10px;
-  label {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    color: #4a4a4a;
-  }
-  input {
-    border: none;
-    border-radius: 4px;
-    width: 100%;
-    height: 44px;
-    padding-left: 10px;
-    font-size: 16px;
-  }
-  textarea {
-    border: none;
-    border-radius: 4px;
-    width: 100%;
-    height: 88px;
-    padding: 10px;
-    font-size: 16px;
-    resize: vertical;
-  }
-`;
-const StyledSubmit = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 4px;
-  width: 100%;
-  height: 44px;
-  background-color: #ff7a37;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  transition: all 0.2s;
-  span {
-    margin: 0 10px;
-  }
-  :hover {
-    background-color: #e66e32;
-  }
-  :disabled {
-    opacity: 0.8;
-    cursor: not-allowed;
-  }
 `;
 const StyledCancel = styled.button`
   border: none;
@@ -113,26 +65,21 @@ class CommentFormEdit extends React.Component {
         <StyledCancel onClick={this.cancelEditing}>Cancel edit</StyledCancel>
 
         <StyledCommentForm onSubmit={this.handleSubmit}>
-          <StyledFormGroup>
-            <label htmlFor="editCommentAuthor">Author</label>
-            <input
-              type="text"
-              id="editCommentAuthor"
-              name="author"
-              value={comment.author}
-              disabled
-            />
-          </StyledFormGroup>
+          <FormInput
+            label="Author"
+            htmlFor="editCommentAuthor"
+            name="author"
+            value={comment.author}
+            disabled
+          />
 
-          <StyledFormGroup>
-            <label htmlFor="editCommentBody">Body</label>
-            <textarea
-              id="editCommentBody"
-              name="body"
-              defaultValue={comment.body || body}
-              onChange={this.handleChange}
-            />
-          </StyledFormGroup>
+          <FormTextarea
+            label="Body"
+            htmlFor="editCommentBody"
+            name="body"
+            defaultValue={comment.body || body}
+            onChange={this.handleChange}
+          />
 
           {error && (
             <StyledCentered>
@@ -140,10 +87,7 @@ class CommentFormEdit extends React.Component {
             </StyledCentered>
           )}
 
-          <StyledSubmit type="submit">
-            <span>Edit comment</span>
-            {submitting && <Loading color="#fff" />}
-          </StyledSubmit>
+          <FormSubmit text="Edit comment" submitting={submitting} />
         </StyledCommentForm>
       </StyledNew>
     );

@@ -24,6 +24,8 @@ export default (state = initialState, action) => {
       };
     case types.RESET_COMMENTS:
       return initialState;
+    case types.COMMENT_CREATE_SUCCESS:
+      return { ...state, comments: [...state.comments, action.payload] };
     default:
       return state;
   }

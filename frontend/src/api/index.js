@@ -36,3 +36,15 @@ export const postNewPost = values => {
     body: JSON.stringify(params)
   });
 };
+
+export const postNewComment = values => {
+  const params = { ...values, id: shortid.generate(), timestamp: Date.now() };
+  return fetch(`${api}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  });
+};

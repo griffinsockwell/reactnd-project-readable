@@ -8,6 +8,7 @@ import { fetchPost, resetPost, fetchComments, resetComments } from '../actions';
 import ErrMsg from '../common/ErrMsg';
 import Loading from '../common/Loading';
 // components
+import CommentFormNew from './CommentFormNew';
 import CommentList from './CommentList';
 import PostListItem from './PostListItem';
 
@@ -77,9 +78,12 @@ class Post extends React.Component {
 
           <StyledComments>
             <h2>COMMENTS</h2>
+
             {!this.props.commentsLoading && (
               <CommentList comments={this.props.comments} />
             )}
+
+            <CommentFormNew parentId={this.props.post.id} />
           </StyledComments>
         </StyledPost>
       );

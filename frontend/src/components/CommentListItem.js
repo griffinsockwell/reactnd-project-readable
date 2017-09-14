@@ -12,7 +12,6 @@ const StyledListItem = styled.li`
 `;
 const StyledCommentBody = styled.div`
   text-decoration: none;
-  font-weight: 700;
   color: #212121;
 `;
 const StyledVoteCount = styled.div`

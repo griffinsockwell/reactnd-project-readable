@@ -22,3 +22,8 @@ export const fetchPostsForCategory = category => async dispatch => {
 };
 
 export const resetPosts = () => ({ type: types.RESET_POSTS });
+
+export const setPostsOrder = order => ({
+  type: types.POSTS_SET_ORDER,
+  payload: order
+});

@@ -6,10 +6,16 @@ import styled from 'styled-components';
 import { fetchPosts, resetPosts } from '../actions';
 // components
 import PostList from './PostList';
+import PostOrder from './PostOrder';
 
 const StyledHome = styled.div`
-  h2 {
+  header {
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+  h2 {
+    flex: 1;
     color: #d8d8d8;
   }
 `;
@@ -28,7 +34,10 @@ class Home extends React.Component {
 
     return (
       <StyledHome>
-        <h2>ALL POSTS</h2>
+        <header>
+          <h2>ALL POSTS</h2>
+          <PostOrder />
+        </header>
         <PostList loading={loading} error={error} posts={posts} />
       </StyledHome>
     );

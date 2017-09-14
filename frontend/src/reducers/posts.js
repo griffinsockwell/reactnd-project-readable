@@ -3,7 +3,8 @@ import * as types from '../types';
 const initialState = {
   loading: true,
   error: '',
-  posts: []
+  posts: [],
+  order: 'timestamp'
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +25,8 @@ export default (state = initialState, action) => {
       };
     case types.RESET_POSTS:
       return initialState;
+    case types.POSTS_SET_ORDER:
+      return { ...state, order: action.payload };
     default:
       return state;
   }

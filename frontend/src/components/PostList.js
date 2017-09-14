@@ -1,6 +1,8 @@
 // node_modules
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import orderBy from 'lodash/orderBy';
 // common
 import ErrMsg from '../common/ErrMsg';
 import Loading from '../common/Loading';
@@ -35,9 +37,10 @@ const PostList = props => {
     );
   } else if (props.posts.length) {
     const filteredPosts = props.posts.filter(post => post.deleted === false);
+    const orderedPosts = orderBy(filteredPosts, [props.order], ['desc']);
     component = (
       <StyledList>
-        {filteredPosts.map(post => <PostListItem key={post.id} post={post} />)}
+        {orderedPosts.map(post => <PostListItem key={post.id} post={post} />)}
       </StyledList>
     );
   } else {
@@ -51,4 +54,6 @@ const PostList = props => {
   return component;
 };
 
-export default PostList;
+const mapStateToProps = state => ({ order: state.posts.order });
+
+export default connect(mapStateToProps, {})(PostList);

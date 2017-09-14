@@ -6,10 +6,16 @@ import styled from 'styled-components';
 import { fetchPostsForCategory, resetPosts } from '../actions';
 // components
 import PostList from './PostList';
+import PostOrder from './PostOrder';
 
 const StyledCategory = styled.div`
-  h2 {
+  header {
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+  }
+  h2 {
+    flex: 1;
     color: #d8d8d8;
   }
 `;
@@ -34,11 +40,15 @@ class Category extends React.Component {
   }
 
   render() {
-    const { loading, error, posts } = this.props;
+    const { match, loading, error, posts } = this.props;
 
     return (
       <StyledCategory>
-        <h2>{this.props.match.params.category.toUpperCase()} POSTS</h2>
+        <header>
+          <h2>{match.params.category.toUpperCase()} POSTS</h2>
+          <PostOrder />
+        </header>
+
         <PostList loading={loading} error={error} posts={posts} />
       </StyledCategory>
     );

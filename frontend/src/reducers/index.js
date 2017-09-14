@@ -5,6 +5,7 @@ import commentCreate from './commentCreate';
 import comments from './comments';
 import post from './post';
 import postCreate from './postCreate';
+import postEdit from './postEdit';
 import posts from './posts';
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
   comments,
   post,
   postCreate,
+  postEdit,
   posts
 });

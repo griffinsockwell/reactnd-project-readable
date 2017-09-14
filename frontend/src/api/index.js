@@ -48,3 +48,15 @@ export const postNewComment = values => {
     body: JSON.stringify(params)
   });
 };
+
+export const postEditPost = (values, postId) => {
+  const params = { ...values };
+  return fetch(`${api}/posts/${postId}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  });
+};

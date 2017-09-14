@@ -49,7 +49,7 @@ export const postNewComment = values => {
   });
 };
 
-export const postEditPost = (values, postId) => {
+export const putEditPost = (values, postId) => {
   const params = { ...values };
   return fetch(`${api}/posts/${postId}`, {
     method: 'PUT',

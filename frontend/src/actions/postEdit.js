@@ -1,5 +1,5 @@
 import * as types from '../types';
-import { getPost, postEditPost } from '../api';
+import { getPost, putEditPost } from '../api';
 
 export const fetchPostToEdit = id => async dispatch => {
   try {
@@ -21,7 +21,7 @@ export const setTextForPostEdit = (name, value) => ({
 export const postEdit = (values, postId) => async dispatch => {
   dispatch({ type: types.POST_EDIT_SUBMITTING });
   try {
-    const res = await postEditPost(values, postId);
+    const res = await putEditPost(values, postId);
     const post = await res.json();
     dispatch({ type: types.POST_EDIT_SUCCESS, payload: post.id });
   } catch (e) {

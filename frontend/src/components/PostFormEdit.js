@@ -158,20 +158,20 @@ class PostFormEdit extends React.Component {
 
           <StyledPostForm onSubmit={this.handleSubmit}>
             <StyledFormGroup>
-              <label htmlFor="createAuthor">Author</label>
+              <label htmlFor="editPostAuthor">Author</label>
               <input
                 type="text"
-                id="createAuthor"
+                id="editPostAuthor"
                 value={post.author}
                 disabled
               />
             </StyledFormGroup>
 
             <StyledFormGroup>
-              <label htmlFor="createTitle">Title</label>
+              <label htmlFor="editPostTitle">Title</label>
               <input
                 type="text"
-                id="createTitle"
+                id="editPostTitle"
                 name="title"
                 defaultValue={post.title || title}
                 onChange={this.handleChange}
@@ -179,19 +179,19 @@ class PostFormEdit extends React.Component {
             </StyledFormGroup>
 
             <StyledFormGroup>
-              <label htmlFor="createCategory">Category</label>
+              <label htmlFor="editPostCategory">Category</label>
               <input
                 type="text"
-                id="createCategory"
+                id="editPostCategory"
                 value={post.category}
                 disabled
               />
             </StyledFormGroup>
 
             <StyledFormGroup>
-              <label htmlFor="createBody">Body</label>
+              <label htmlFor="editPostBody">Body</label>
               <textarea
-                id="createBody"
+                id="editPostBody"
                 name="body"
                 defaultValue={post.body || body}
                 onChange={this.handleChange}

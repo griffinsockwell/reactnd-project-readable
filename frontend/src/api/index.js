@@ -60,3 +60,15 @@ export const postEditPost = (values, postId) => {
     body: JSON.stringify(params)
   });
 };
+
+export const putEditComment = (values, commentId) => {
+  const params = { ...values, timestamp: Date.now() };
+  return fetch(`${api}/comments/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  });
+};

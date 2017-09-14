@@ -1,6 +1,12 @@
+// node_modules
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import format from 'date-fns/format';
+// actions
+import { setCommentToEdit } from '../actions';
+// components
+import CommentFormEdit from './CommentFormEdit';
 
 const StyledListItem = styled.li`
   padding: 10px;
@@ -77,43 +83,61 @@ const StyledDelete = styled.button`
   }
 `;
 
-const CommentListItem = props => {
-  const { comment } = props;
-  return (
-    <StyledListItem>
-      <StyledVoteCount>
-        <button title="vote up">
-          <i className="material-icons">keyboard_arrow_up</i>
-        </button>
-        <span>{comment.voteScore}</span>
-        <button title="vote down">
-          <i className="material-icons">keyboard_arrow_down</i>
-        </button>
-      </StyledVoteCount>
+class CommentListItem extends React.Component {
+  startEditing = () => {
+    const { comment, setCommentToEdit } = this.props;
+    setCommentToEdit(comment.id);
+  };
 
-      <StyledCommentInfo>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <StyledCommentBody>{comment.body}</StyledCommentBody>
-          <StyledEdit>
-            <i className="material-icons">edit</i>
-          </StyledEdit>
-        </div>
-        <div>
-          <span>comment by {comment.author}</span>
-        </div>
-      </StyledCommentInfo>
+  render() {
+    const { comment } = this.props;
 
-      <StyledDate>
-        <span>{format(new Date(comment.timestamp), 'ddd')}</span>
-        <div>{format(new Date(comment.timestamp), 'MMM D')}</div>
-        <span>{format(new Date(comment.timestamp), 'YYYY')}</span>
-      </StyledDate>
+    let component;
+    if (this.props.editingCommentId === comment.id) {
+      component = <CommentFormEdit comment={comment} />;
+    } else {
+      component = (
+        <StyledListItem>
+          <StyledVoteCount>
+            <button title="vote up">
+              <i className="material-icons">keyboard_arrow_up</i>
+            </button>
+            <span>{comment.voteScore}</span>
+            <button title="vote down">
+              <i className="material-icons">keyboard_arrow_down</i>
+            </button>
+          </StyledVoteCount>
 
-      <StyledDelete title="delete post">
-        <i className="material-icons">delete</i>
-      </StyledDelete>
-    </StyledListItem>
-  );
-};
+          <StyledCommentInfo>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <StyledCommentBody>{comment.body}</StyledCommentBody>
+              <StyledEdit onClick={this.startEditing}>
+                <i className="material-icons">edit</i>
+              </StyledEdit>
+            </div>
+            <div>
+              <span>comment by {comment.author}</span>
+            </div>
+          </StyledCommentInfo>
 
-export default CommentListItem;
+          <StyledDate>
+            <span>{format(new Date(comment.timestamp), 'ddd')}</span>
+            <div>{format(new Date(comment.timestamp), 'MMM D')}</div>
+            <span>{format(new Date(comment.timestamp), 'YYYY')}</span>
+          </StyledDate>
+
+          <StyledDelete title="delete post">
+            <i className="material-icons">delete</i>
+          </StyledDelete>
+        </StyledListItem>
+      );
+    }
+    return component;
+  }
+}
+
+const mapStateToProps = state => ({
+  editingCommentId: state.commentEdit.editingCommentId
+});
+
+export default connect(mapStateToProps, { setCommentToEdit })(CommentListItem);

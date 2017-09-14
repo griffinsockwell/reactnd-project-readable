@@ -1,6 +1,9 @@
 // node_modules
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+// actions
+import { resetCommentToEdit } from '../actions';
 // components
 import CommentListItem from './CommentListItem';
 
@@ -16,25 +19,33 @@ const StyledNoComments = styled.div`
   color: #9b9b9b;
 `;
 
-const CommentList = props => {
-  let component;
-  if (props.comments.length) {
-    component = (
-      <StyledList>
-        {props.comments.map(comment => (
-          <CommentListItem key={comment.id} comment={comment} />
-        ))}
-      </StyledList>
-    );
-  } else {
-    component = (
-      <StyledCentered>
-        <StyledNoComments>NO COMMENTS FOR THIS POST</StyledNoComments>
-      </StyledCentered>
-    );
+class CommentList extends React.Component {
+  componentWillUnmount() {
+    this.props.resetCommentToEdit();
   }
 
-  return component;
-};
+  render() {
+    let component;
+    if (this.props.comments.length) {
+      component = (
+        <StyledList>
+          {this.props.comments.map(comment => (
+            <CommentListItem key={comment.id} comment={comment} />
+          ))}
+        </StyledList>
+      );
+    } else {
+      component = (
+        <StyledCentered>
+          <StyledNoComments>NO COMMENTS FOR THIS POST</StyledNoComments>
+        </StyledCentered>
+      );
+    }
 
-export default CommentList;
+    return component;
+  }
+}
+
+const mapStateToProps = state => ({});
+
+export default connect(mapStateToProps, { resetCommentToEdit })(CommentList);

@@ -3,7 +3,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 // actions
-import { resetCommentToEdit } from '../actions';
+import { resetCommentToEdit, fetchComments, resetComments } from '../actions';
+// common
+import ErrMsg from '../common/ErrMsg';
+import Loading from '../common/Loading';
 // components
 import CommentListItem from './CommentListItem';
 
@@ -20,16 +23,41 @@ const StyledNoComments = styled.div`
 `;
 
 class CommentList extends React.Component {
+  componentDidMount() {
+    const { parentId, fetchComments } = this.props;
+    fetchComments(parentId);
+  }
+
   componentWillUnmount() {
+    this.props.resetComments();
     this.props.resetCommentToEdit();
   }
 
   render() {
+    const { loading, error, comments } = this.props;
+
+    let allComments = [];
+    if (loading === false && comments.length) {
+      allComments = comments.filter(comment => comment.deleted === false);
+    }
+
     let component;
-    if (this.props.comments.length) {
+    if (loading) {
+      component = (
+        <StyledCentered>
+          <Loading />
+        </StyledCentered>
+      );
+    } else if (error) {
+      component = (
+        <StyledCentered>
+          <ErrMsg msg={error} />
+        </StyledCentered>
+      );
+    } else if (allComments.length) {
       component = (
         <StyledList>
-          {this.props.comments.map(comment => (
+          {allComments.map(comment => (
             <CommentListItem key={comment.id} comment={comment} />
           ))}
         </StyledList>
@@ -46,6 +74,14 @@ class CommentList extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  loading: state.comments.loading,
+  error: state.comments.error,
+  comments: state.comments.comments
+});
 
-export default connect(mapStateToProps, { resetCommentToEdit })(CommentList);
+export default connect(mapStateToProps, {
+  resetCommentToEdit,
+  fetchComments,
+  resetComments
+})(CommentList);

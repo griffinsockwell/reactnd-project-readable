@@ -24,6 +24,9 @@ export default (state = initialState, action) => {
       };
     case types.RESET_POST:
       return initialState;
+    case types.POSTS_DELETE:
+      const postToDelete = action.payload;
+      return { ...state, post: { ...postToDelete, deleted: true } };
     default:
       return state;
   }

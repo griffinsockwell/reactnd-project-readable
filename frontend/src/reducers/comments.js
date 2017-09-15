@@ -27,9 +27,21 @@ export default (state = initialState, action) => {
     case types.COMMENT_CREATE_SUCCESS:
       return { ...state, comments: [...state.comments, action.payload] };
     case types.COMMENT_EDIT_SUCCESS:
-      const comment = action.payload;
-      const filteredComments = state.comments.filter(c => c.id !== comment.id);
-      return { ...state, comments: [...filteredComments, comment] };
+      const commentToEdit = action.payload;
+      const filteredCommentsEdit = state.comments.filter(
+        c => c.id !== commentToEdit.id
+      );
+      return { ...state, comments: [...filteredCommentsEdit, commentToEdit] };
+    case types.COMMENTS_DELETE:
+      const commentToDelete = action.payload;
+      const filteredCommentsDelete = state.comments.filter(
+        c => c.id !== commentToDelete.id
+      );
+      const deletedComment = { ...commentToDelete, deleted: true };
+      return {
+        ...state,
+        comments: [...filteredCommentsDelete, deletedComment]
+      };
     default:
       return state;
   }

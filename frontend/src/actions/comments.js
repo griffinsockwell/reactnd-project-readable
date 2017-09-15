@@ -1,5 +1,5 @@
 import * as types from '../types';
-import { getCommentsForPost } from '../api';
+import { getCommentsForPost, deleteComment } from '../api';
 
 export const fetchComments = id => async dispatch => {
   try {
@@ -12,3 +12,15 @@ export const fetchComments = id => async dispatch => {
 };
 
 export const resetComments = () => ({ type: types.RESET_COMMENTS });
+
+export const removeComment = comment => async dispatch => {
+  try {
+    await deleteComment(comment.id);
+    dispatch({
+      type: types.COMMENTS_DELETE,
+      payload: comment
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
+};

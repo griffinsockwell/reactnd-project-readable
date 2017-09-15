@@ -1,9 +1,10 @@
 // node_modules
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 // actions
-import { fetchPost, resetPost, fetchComments, resetComments } from '../actions';
+import { fetchPost, resetPost } from '../actions';
 // common
 import ErrMsg from '../common/ErrMsg';
 import Loading from '../common/Loading';
@@ -41,48 +42,44 @@ class Post extends React.Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.fetchPost(id);
-    this.props.fetchComments(id);
   }
 
   componentWillUnmount() {
     this.props.resetPost();
-    this.props.resetComments();
   }
 
   render() {
+    const { loading, error, post } = this.props;
+
     let component;
-    if (this.props.postLoading || this.props.commentsLoading) {
+    if (loading) {
       component = (
         <StyledCentered>
           <Loading />
         </StyledCentered>
       );
-    } else if (this.props.postError) {
+    } else if (error) {
       component = (
         <StyledCentered>
-          <ErrMsg msg={this.props.postError} />
+          <ErrMsg msg={error} />
         </StyledCentered>
       );
+    } else if (post.deleted || !post.id) {
+      component = <Redirect to="/" />;
     } else {
       component = (
         <StyledPost>
           <div>
             <h2>POST</h2>
-            {!this.props.postLoading && (
-              <div>
-                <PostListItem post={this.props.post} />
-                <StyledPostBody>{this.props.post.body}</StyledPostBody>
-              </div>
-            )}
+            <div>
+              <PostListItem post={this.props.post} />
+              <StyledPostBody>{this.props.post.body}</StyledPostBody>
+            </div>
           </div>
 
           <StyledComments>
             <h2>COMMENTS</h2>
-
-            {!this.props.commentsLoading && (
-              <CommentList comments={this.props.comments} />
-            )}
-
+            <CommentList parentId={this.props.post.id} />
             <CommentFormNew parentId={this.props.post.id} />
           </StyledComments>
         </StyledPost>
@@ -93,20 +90,10 @@ class Post extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    postLoading: state.post.loading,
-    postError: state.post.error,
-    post: state.post.post,
-    commentsLoading: state.comments.loading,
-    commentsError: state.comments.error,
-    comments: state.comments.comments
-  };
-};
+const mapStateToProps = state => ({
+  loading: state.post.loading,
+  error: state.post.error,
+  post: state.post.post
+});
 
-export default connect(mapStateToProps, {
-  fetchPost,
-  resetPost,
-  fetchComments,
-  resetComments
-})(Post);
+export default connect(mapStateToProps, { fetchPost, resetPost })(Post);

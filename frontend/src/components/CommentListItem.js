@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 // actions
-import { setCommentToEdit } from '../actions';
+import { setCommentToEdit, removeComment } from '../actions';
 // components
 import CommentFormEdit from './CommentFormEdit';
 
@@ -84,6 +84,11 @@ const StyledDelete = styled.button`
 `;
 
 class CommentListItem extends React.Component {
+  handleRemove = () => {
+    const { comment, removeComment } = this.props;
+    removeComment(comment);
+  };
+
   startEditing = () => {
     const { comment, setCommentToEdit } = this.props;
     setCommentToEdit(comment.id);
@@ -126,7 +131,7 @@ class CommentListItem extends React.Component {
             <span>{format(new Date(comment.timestamp), 'YYYY')}</span>
           </StyledDate>
 
-          <StyledDelete title="delete post">
+          <StyledDelete title="delete post" onClick={this.handleRemove}>
             <i className="material-icons">delete</i>
           </StyledDelete>
         </StyledListItem>
@@ -140,4 +145,6 @@ const mapStateToProps = state => ({
   editingCommentId: state.commentEdit.editingCommentId
 });
 
-export default connect(mapStateToProps, { setCommentToEdit })(CommentListItem);
+export default connect(mapStateToProps, { setCommentToEdit, removeComment })(
+  CommentListItem
+);

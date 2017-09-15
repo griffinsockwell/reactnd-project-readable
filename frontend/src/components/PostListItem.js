@@ -1,8 +1,11 @@
 // node_modules
 import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import format from 'date-fns/format';
+// actions
+import { removePost } from '../actions';
 // utils
 import getColor from '../utils/getColor';
 
@@ -100,49 +103,66 @@ const StyledDelete = styled.button`
   }
 `;
 
-const PostListItem = props => {
-  const { post } = props;
-  return (
-    <StyledListItem>
-      <StyledVoteCount>
-        <button title="vote up">
-          <i className="material-icons">keyboard_arrow_up</i>
-        </button>
-        <span>{post.voteScore}</span>
-        <button title="vote down">
-          <i className="material-icons">keyboard_arrow_down</i>
-        </button>
-      </StyledVoteCount>
+class PostListItem extends React.Component {
+  handleRemove = () => {
+    const { post, removePost } = this.props;
+    removePost(post);
+  };
 
-      <StyledPostInfo>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <StyledPostLink to={`/post/${post.id}`}>{post.title}</StyledPostLink>
-          <StyledEdit to={`/post/${post.id}/edit`}>
-            <i className="material-icons">edit</i>
-          </StyledEdit>
-        </div>
-        <div>
-          <span>post by {post.author}</span>{' '}
-          <StyledCategoryLink
-            to={`/category/${post.category}`}
-            name={post.category}
-          >
-            {post.category.toUpperCase()}
-          </StyledCategoryLink>
-        </div>
-      </StyledPostInfo>
+  render() {
+    const { post } = this.props;
+    let component;
+    if (post.deleted) {
+      component = <div />;
+    } else {
+      component = (
+        <StyledListItem>
+          <StyledVoteCount>
+            <button title="vote up">
+              <i className="material-icons">keyboard_arrow_up</i>
+            </button>
+            <span>{post.voteScore}</span>
+            <button title="vote down">
+              <i className="material-icons">keyboard_arrow_down</i>
+            </button>
+          </StyledVoteCount>
 
-      <StyledDate>
-        <span>{format(new Date(post.timestamp), 'ddd')}</span>
-        <div>{format(new Date(post.timestamp), 'MMM D')}</div>
-        <span>{format(new Date(post.timestamp), 'YYYY')}</span>
-      </StyledDate>
+          <StyledPostInfo>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <StyledPostLink to={`/post/${post.id}`}>
+                {post.title}
+              </StyledPostLink>
+              <StyledEdit to={`/post/${post.id}/edit`}>
+                <i className="material-icons">edit</i>
+              </StyledEdit>
+            </div>
+            <div>
+              <span>post by {post.author}</span>{' '}
+              <StyledCategoryLink
+                to={`/category/${post.category}`}
+                name={post.category}
+              >
+                {post.category.toUpperCase()}
+              </StyledCategoryLink>
+            </div>
+          </StyledPostInfo>
 
-      <StyledDelete title="delete post">
-        <i className="material-icons">delete</i>
-      </StyledDelete>
-    </StyledListItem>
-  );
-};
+          <StyledDate>
+            <span>{format(new Date(post.timestamp), 'ddd')}</span>
+            <div>{format(new Date(post.timestamp), 'MMM D')}</div>
+            <span>{format(new Date(post.timestamp), 'YYYY')}</span>
+          </StyledDate>
 
-export default PostListItem;
+          <StyledDelete title="delete post" onClick={this.handleRemove}>
+            <i className="material-icons">delete</i>
+          </StyledDelete>
+        </StyledListItem>
+      );
+    }
+    return component;
+  }
+}
+
+const mapStateToProps = state => ({});
+
+export default connect(mapStateToProps, { removePost })(PostListItem);

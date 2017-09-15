@@ -72,3 +72,21 @@ export const putEditComment = (values, commentId) => {
     body: JSON.stringify(params)
   });
 };
+
+export const deletePost = postId =>
+  fetch(`${api}/posts/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    }
+  });
+
+export const deleteComment = commentId =>
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    }
+  });

@@ -27,6 +27,11 @@ export default (state = initialState, action) => {
       return initialState;
     case types.POSTS_SET_ORDER:
       return { ...state, order: action.payload };
+    case types.POSTS_DELETE:
+      const postToDelete = action.payload;
+      const filteredPosts = state.posts.filter(p => p.id !== postToDelete.id);
+      const deletedPost = { ...postToDelete, deleted: true };
+      return { ...state, posts: [...filteredPosts, deletedPost] };
     default:
       return state;
   }

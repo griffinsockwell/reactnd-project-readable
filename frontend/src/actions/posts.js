@@ -1,5 +1,5 @@
 import * as types from '../types';
-import { getPosts, getPostsForCategory } from '../api';
+import { getPosts, getPostsForCategory, deletePost } from '../api';
 
 export const fetchPosts = () => async dispatch => {
   try {
@@ -27,3 +27,15 @@ export const setPostsOrder = order => ({
   type: types.POSTS_SET_ORDER,
   payload: order
 });
+
+export const removePost = post => async dispatch => {
+  try {
+    await deletePost(post.id);
+    dispatch({
+      type: types.POSTS_DELETE,
+      payload: post
+    });
+  } catch (e) {
+    console.log(e.message);
+  }
+};

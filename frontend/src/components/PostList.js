@@ -22,6 +22,12 @@ const StyledNoPosts = styled.div`
 `;
 
 const PostList = props => {
+  let posts = [];
+  if (props.loading === false && props.posts.length) {
+    const filteredPosts = props.posts.filter(post => post.deleted === false);
+    posts = orderBy(filteredPosts, [props.order], ['desc']);
+  }
+
   let component;
   if (props.loading) {
     component = (
@@ -35,12 +41,10 @@ const PostList = props => {
         <ErrMsg msg={props.error} />
       </StyledCentered>
     );
-  } else if (props.posts.length) {
-    const filteredPosts = props.posts.filter(post => post.deleted === false);
-    const orderedPosts = orderBy(filteredPosts, [props.order], ['desc']);
+  } else if (posts.length) {
     component = (
       <StyledList>
-        {orderedPosts.map(post => <PostListItem key={post.id} post={post} />)}
+        {posts.map(post => <PostListItem key={post.id} post={post} />)}
       </StyledList>
     );
   } else {

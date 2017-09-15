@@ -7,6 +7,7 @@ import format from 'date-fns/format';
 import { setCommentToEdit, removeComment } from '../actions';
 // components
 import CommentFormEdit from './CommentFormEdit';
+import VoteCounter from './VoteCounter';
 
 const StyledListItem = styled.li`
   padding: 10px;
@@ -19,26 +20,6 @@ const StyledListItem = styled.li`
 const StyledCommentBody = styled.div`
   text-decoration: none;
   color: #212121;
-`;
-const StyledVoteCount = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 10px;
-  span {
-    color: #4a4a4a;
-    font-size: 20px;
-    font-weight: 700;
-  }
-  button {
-    color: #9b9b9b;
-    border: none;
-    background: none;
-    transition: all 0.2s;
-  }
-  button:hover {
-    color: #ff7a37;
-  }
 `;
 const StyledCommentInfo = styled.div`
   flex: 1;
@@ -103,15 +84,7 @@ class CommentListItem extends React.Component {
     } else {
       component = (
         <StyledListItem>
-          <StyledVoteCount>
-            <button title="vote up">
-              <i className="material-icons">keyboard_arrow_up</i>
-            </button>
-            <span>{comment.voteScore}</span>
-            <button title="vote down">
-              <i className="material-icons">keyboard_arrow_down</i>
-            </button>
-          </StyledVoteCount>
+          <VoteCounter item={comment} />
 
           <StyledCommentInfo>
             <div style={{ display: 'flex', alignItems: 'center' }}>

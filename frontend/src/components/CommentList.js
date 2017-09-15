@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import orderBy from 'lodash/orderBy';
 // actions
 import { resetCommentToEdit, fetchComments, resetComments } from '../actions';
 // common
@@ -38,7 +39,10 @@ class CommentList extends React.Component {
 
     let allComments = [];
     if (loading === false && comments.length) {
-      allComments = comments.filter(comment => comment.deleted === false);
+      const filteredComments = comments.filter(
+        comment => comment.deleted === false
+      );
+      allComments = orderBy(filteredComments, ['timestamp'], ['asc']);
     }
 
     let component;

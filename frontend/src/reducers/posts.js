@@ -32,6 +32,10 @@ export default (state = initialState, action) => {
       const filteredPosts = state.posts.filter(p => p.id !== postToDelete.id);
       const deletedPost = { ...postToDelete, deleted: true };
       return { ...state, posts: [...filteredPosts, deletedPost] };
+    case types.POSTS_VOTE:
+      const postToVote = action.payload;
+      const filteredPostsVote = state.posts.filter(p => p.id !== postToVote.id);
+      return { ...state, posts: [...filteredPostsVote, postToVote] };
     default:
       return state;
   }

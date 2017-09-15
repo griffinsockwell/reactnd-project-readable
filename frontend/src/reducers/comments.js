@@ -42,6 +42,12 @@ export default (state = initialState, action) => {
         ...state,
         comments: [...filteredCommentsDelete, deletedComment]
       };
+    case types.COMMENTS_VOTE:
+      const commentToVote = action.payload;
+      const filteredCommentsVote = state.comments.filter(
+        c => c.id !== commentToVote.id
+      );
+      return { ...state, comments: [...filteredCommentsVote, commentToVote] };
     default:
       return state;
   }

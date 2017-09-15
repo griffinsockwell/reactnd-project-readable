@@ -27,6 +27,9 @@ export default (state = initialState, action) => {
     case types.POSTS_DELETE:
       const postToDelete = action.payload;
       return { ...state, post: { ...postToDelete, deleted: true } };
+    case types.POSTS_VOTE:
+      const postToVote = action.payload;
+      return { ...state, post: postToVote };
     default:
       return state;
   }

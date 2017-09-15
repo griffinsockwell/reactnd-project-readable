@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import format from 'date-fns/format';
 // actions
 import { removePost } from '../actions';
+// components
+import VoteCounter from './VoteCounter';
 // utils
 import getColor from '../utils/getColor';
 
@@ -38,26 +40,6 @@ const StyledCategoryLink = styled(NavLink)`
   transition: all 0.2s;
   :hover {
     color: ${props => getColor(props.name)};
-  }
-`;
-const StyledVoteCount = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 10px;
-  span {
-    color: #4a4a4a;
-    font-size: 20px;
-    font-weight: 700;
-  }
-  button {
-    color: #9b9b9b;
-    border: none;
-    background: none;
-    transition: all 0.2s;
-  }
-  button:hover {
-    color: #ff7a37;
   }
 `;
 const StyledPostInfo = styled.div`
@@ -117,15 +99,7 @@ class PostListItem extends React.Component {
     } else {
       component = (
         <StyledListItem>
-          <StyledVoteCount>
-            <button title="vote up">
-              <i className="material-icons">keyboard_arrow_up</i>
-            </button>
-            <span>{post.voteScore}</span>
-            <button title="vote down">
-              <i className="material-icons">keyboard_arrow_down</i>
-            </button>
-          </StyledVoteCount>
+          <VoteCounter item={post} isPost />
 
           <StyledPostInfo>
             <div style={{ display: 'flex', alignItems: 'center' }}>

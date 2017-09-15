@@ -35,7 +35,11 @@ export default (state = initialState, action) => {
     case types.POSTS_VOTE:
       const postToVote = action.payload;
       const filteredPostsVote = state.posts.filter(p => p.id !== postToVote.id);
-      return { ...state, posts: [...filteredPostsVote, postToVote] };
+      const oldPost = state.posts.filter(p => p.id === postToVote.id);
+      return {
+        ...state,
+        posts: [...filteredPostsVote, { ...oldPost[0], ...postToVote }]
+      };
     case types.POSTS_COMMENTS:
       const comments = action.payload;
       if (comments.length) {

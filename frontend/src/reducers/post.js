@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       return { ...state, post: { ...postToDelete, deleted: true } };
     case types.POSTS_VOTE:
       const postToVote = action.payload;
-      return { ...state, post: postToVote };
+      return { ...state, post: { ...state.post, ...postToVote } };
     case types.POSTS_COMMENTS:
       const comments = action.payload;
       const post = { ...state.post, comments };

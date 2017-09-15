@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledFormGroup = styled.div`
@@ -19,21 +20,27 @@ const StyledFormGroup = styled.div`
   }
 `;
 
-const FormInput = props => {
-  return (
-    <StyledFormGroup>
-      <label htmlFor={props.htmlFor}>{props.label}</label>
-      <input
-        type="text"
-        id={props.htmlFor}
-        name={props.name}
-        value={props.value}
-        defaultValue={props.defaultValue}
-        onChange={props.onChange}
-        disabled={props.disabled}
-      />
-    </StyledFormGroup>
-  );
+const FormInput = props => (
+  <StyledFormGroup>
+    <label htmlFor={props.htmlFor}>{props.label}</label>
+    <input
+      type="text"
+      id={props.htmlFor}
+      name={props.name}
+      value={props.value}
+      defaultValue={props.defaultValue}
+      onChange={props.onChange}
+      disabled={props.disabled}
+    />
+  </StyledFormGroup>
+);
+
+FormInput.propTypes = {
+  htmlFor: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string
 };
 
 export default FormInput;

@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -37,6 +38,25 @@ const StyledCentered = styled.div`
 `;
 
 class PostFormNew extends React.Component {
+  static propTypes = {
+    author: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    categories: PropTypes.array.isRequired,
+    category: PropTypes.string.isRequired,
+    error: PropTypes.string.isRequired,
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    postCreate: PropTypes.func.isRequired,
+    postId: PropTypes.string.isRequired,
+    resetPostCreate: PropTypes.func.isRequired,
+    setCategoryForPostCreate: PropTypes.func.isRequired,
+    setTextForPostCreate: PropTypes.func.isRequired,
+    staticContext: PropTypes.any,
+    submitting: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired
+  };
+
   componentWillUnmount() {
     this.props.resetPostCreate();
   }

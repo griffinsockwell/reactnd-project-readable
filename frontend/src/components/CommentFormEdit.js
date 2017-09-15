@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 // actions
@@ -40,6 +41,17 @@ const StyledCentered = styled.div`
 `;
 
 class CommentFormEdit extends React.Component {
+  static propTypes = {
+    body: PropTypes.string.isRequired,
+    comment: PropTypes.object.isRequired,
+    commentEdit: PropTypes.func.isRequired,
+    editingCommentId: PropTypes.string.isRequired,
+    error: PropTypes.string.isRequired,
+    resetCommentToEdit: PropTypes.func.isRequired,
+    setTextForCommentEdit: PropTypes.func.isRequired,
+    submitting: PropTypes.bool.isRequired
+  };
+
   handleSubmit = event => {
     event.preventDefault();
     const { comment } = this.props;

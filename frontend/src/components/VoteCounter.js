@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 // actions
@@ -27,6 +28,13 @@ const StyledVoteCounter = styled.div`
 `;
 
 class VoteCounter extends React.Component {
+  static propTypes = {
+    isPost: PropTypes.bool.isRequired,
+    item: PropTypes.object.isRequired,
+    voteForComment: PropTypes.func.isRequired,
+    voteForPost: PropTypes.func.isRequired
+  };
+
   handleIncrease = () => {
     const option = 'upVote';
     const { item, isPost } = this.props;

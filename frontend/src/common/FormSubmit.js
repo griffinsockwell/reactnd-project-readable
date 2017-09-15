@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 // common
 import Loading from '../common/Loading';
@@ -29,13 +30,17 @@ const StyledSubmit = styled.button`
   }
 `;
 
-const FormSubmit = props => {
-  return (
-    <StyledSubmit type="submit" disabled={props.disabled}>
-      <span>{props.text}</span>
-      {props.submitting && <Loading color="#fff" />}
-    </StyledSubmit>
-  );
+const FormSubmit = props => (
+  <StyledSubmit type="submit" disabled={props.disabled}>
+    <span>{props.text}</span>
+    {props.submitting && <Loading color="#fff" />}
+  </StyledSubmit>
+);
+
+FormSubmit.propTypes = {
+  disabled: PropTypes.bool,
+  submitting: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired
 };
 
 export default FormSubmit;

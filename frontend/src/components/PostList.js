@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import orderBy from 'lodash/orderBy';
@@ -56,6 +57,13 @@ const PostList = props => {
   }
 
   return component;
+};
+
+PostList.propTypes = {
+  error: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  order: PropTypes.string.isRequired,
+  posts: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({ order: state.posts.order });

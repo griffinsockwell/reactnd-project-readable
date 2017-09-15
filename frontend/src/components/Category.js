@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 // api
@@ -21,6 +22,18 @@ const StyledCategory = styled.div`
 `;
 
 class Category extends React.Component {
+  static propTypes = {
+    error: PropTypes.string.isRequired,
+    fetchPostsForCategory: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    posts: PropTypes.array.isRequired,
+    resetPosts: PropTypes.func.isRequired,
+    staticContext: PropTypes.any
+  };
+
   componentDidMount() {
     const { category } = this.props.match.params;
     this.props.fetchPostsForCategory(category);

@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -43,6 +44,25 @@ const StyledCenteredError = styled.div`
 `;
 
 class PostFormEdit extends React.Component {
+  static propTypes = {
+    body: PropTypes.string.isRequired,
+    errorFetch: PropTypes.string.isRequired,
+    errorSubmit: PropTypes.string.isRequired,
+    fetchPostToEdit: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    post: PropTypes.object.isRequired,
+    postEdit: PropTypes.func.isRequired,
+    postId: PropTypes.string.isRequired,
+    resetPostToEdit: PropTypes.func.isRequired,
+    setTextForPostEdit: PropTypes.func.isRequired,
+    staticContext: PropTypes.any,
+    submitting: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired
+  };
+
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.fetchPostToEdit(id);

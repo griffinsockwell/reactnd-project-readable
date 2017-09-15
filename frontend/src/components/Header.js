@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -77,6 +78,13 @@ const StyledCategoryLink = styled(NavLink)`
 `;
 
 class Header extends React.Component {
+  static propTypes = {
+    categories: PropTypes.array.isRequired,
+    error: PropTypes.string.isRequired,
+    fetchCategories: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired
+  };
+
   componentDidMount() {
     this.props.fetchCategories();
   }

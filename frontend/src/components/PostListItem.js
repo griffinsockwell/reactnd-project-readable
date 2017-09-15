@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -89,6 +90,12 @@ const StyledDelete = styled.button`
 `;
 
 class PostListItem extends React.Component {
+  static propTypes = {
+    commentsForPost: PropTypes.func.isRequired,
+    post: PropTypes.object.isRequired,
+    removePost: PropTypes.func.isRequired
+  };
+
   componentDidMount() {
     const { post, commentsForPost } = this.props;
     commentsForPost(post);

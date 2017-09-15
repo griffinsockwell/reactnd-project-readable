@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 // actions
@@ -20,6 +21,11 @@ const StyledOrderButton = styled.button`
 `;
 
 class PostOrder extends React.Component {
+  static propTypes = {
+    order: PropTypes.string.isRequired,
+    setPostsOrder: PropTypes.func.isRequired
+  };
+
   orderByDate = () => {
     this.props.setPostsOrder('timestamp');
   };

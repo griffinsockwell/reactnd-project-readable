@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import orderBy from 'lodash/orderBy';
@@ -24,6 +25,16 @@ const StyledNoComments = styled.div`
 `;
 
 class CommentList extends React.Component {
+  static propTypes = {
+    comments: PropTypes.array.isRequired,
+    error: PropTypes.string.isRequired,
+    fetchComments: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    parentId: PropTypes.string.isRequired,
+    resetCommentToEdit: PropTypes.func.isRequired,
+    resetComments: PropTypes.func.isRequired
+  };
+
   componentDidMount() {
     const { parentId, fetchComments } = this.props;
     fetchComments(parentId);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledFormGroup = styled.div`
@@ -22,22 +23,27 @@ const StyledFormGroup = styled.div`
   }
 `;
 
-const FormSelect = props => {
-  return (
-    <StyledFormGroup>
-      <label htmlFor={props.htmlFor}>Category</label>
-      <select id={props.htmlFor} value={props.value} onChange={props.onChange}>
-        <option value="none" disabled>
-          Select...
+const FormSelect = props => (
+  <StyledFormGroup>
+    <label htmlFor={props.htmlFor}>Category</label>
+    <select id={props.htmlFor} value={props.value} onChange={props.onChange}>
+      <option value="none" disabled>
+        Select...
+      </option>
+      {props.categories.map(category => (
+        <option key={category.name} value={category.name}>
+          {category.name}
         </option>
-        {props.categories.map(category => (
-          <option key={category.name} value={category.name}>
-            {category.name}
-          </option>
-        ))}
-      </select>
-    </StyledFormGroup>
-  );
+      ))}
+    </select>
+  </StyledFormGroup>
+);
+
+FormSelect.propTypes = {
+  categories: PropTypes.array.isRequired,
+  htmlFor: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default FormSelect;

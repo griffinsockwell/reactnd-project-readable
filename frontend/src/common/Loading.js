@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactLoading from 'react-loading';
 
 const Loading = props => (
@@ -10,5 +11,13 @@ const Loading = props => (
     width={props.width || 22}
   />
 );
+
+Loading.propTypes = {
+  color: PropTypes.string,
+  delay: PropTypes.number,
+  height: PropTypes.number,
+  type: PropTypes.string,
+  width: PropTypes.number
+};
 
 export default Loading;

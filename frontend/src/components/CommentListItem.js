@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import format from 'date-fns/format';
@@ -65,6 +66,13 @@ const StyledDelete = styled.button`
 `;
 
 class CommentListItem extends React.Component {
+  static propTypes = {
+    comment: PropTypes.object.isRequired,
+    editingCommentId: PropTypes.string.isRequired,
+    removeComment: PropTypes.func.isRequired,
+    setCommentToEdit: PropTypes.func.isRequired
+  };
+
   handleRemove = () => {
     const { comment, removeComment } = this.props;
     removeComment(comment);

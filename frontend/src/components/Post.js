@@ -1,5 +1,6 @@
 // node_modules
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
@@ -39,6 +40,18 @@ const StyledCentered = styled.div`
 `;
 
 class Post extends React.Component {
+  static propTypes = {
+    error: PropTypes.string.isRequired,
+    fetchPost: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired,
+    location: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    post: PropTypes.object.isRequired,
+    resetPost: PropTypes.func.isRequired,
+    staticContext: PropTypes.any
+  };
+
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.fetchPost(id);

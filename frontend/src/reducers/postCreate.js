@@ -7,7 +7,7 @@ const initialState = {
   title: '',
   body: '',
   category: 'none',
-  postId: ''
+  postNew: {}
 };
 
 export default (state = initialState, action) => {
@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
     case types.POST_CREATE_SUBMITTING:
       return { ...state, submitting: true };
     case types.POST_CREATE_SUCCESS:
-      return { ...state, postId: action.payload };
+      return { ...state, postNew: action.payload };
     case types.POST_CREATE_ERROR:
       return { ...state, submitting: false, error: action.payload };
     case types.POST_CREATE_RESET:

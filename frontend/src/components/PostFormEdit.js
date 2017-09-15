@@ -55,7 +55,7 @@ class PostFormEdit extends React.Component {
     match: PropTypes.object.isRequired,
     post: PropTypes.object.isRequired,
     postEdit: PropTypes.func.isRequired,
-    postId: PropTypes.string.isRequired,
+    postEdited: PropTypes.object.isRequired,
     resetPostToEdit: PropTypes.func.isRequired,
     setTextForPostEdit: PropTypes.func.isRequired,
     staticContext: PropTypes.any,
@@ -64,8 +64,8 @@ class PostFormEdit extends React.Component {
   };
 
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.fetchPostToEdit(id);
+    const { post_id } = this.props.match.params;
+    this.props.fetchPostToEdit(post_id);
   }
 
   componentWillUnmount() {
@@ -95,12 +95,12 @@ class PostFormEdit extends React.Component {
       errorSubmit,
       title,
       body,
-      postId
+      postEdited
     } = this.props;
 
     let component;
-    if (postId) {
-      component = <Redirect to={`/post/${postId}`} />;
+    if (postEdited.id) {
+      component = <Redirect to={`/${postEdited.category}/${postEdited.id}`} />;
     } else if (loading) {
       component = (
         <StyledCentered>
@@ -174,7 +174,7 @@ const mapStateToProps = state => ({
   errorSubmit: state.postEdit.errorSubmit,
   title: state.postEdit.title,
   body: state.postEdit.body,
-  postId: state.postEdit.postId
+  postEdited: state.postEdit.postEdited
 });
 
 export default connect(mapStateToProps, {

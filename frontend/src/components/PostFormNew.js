@@ -48,7 +48,7 @@ class PostFormNew extends React.Component {
     location: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     postCreate: PropTypes.func.isRequired,
-    postId: PropTypes.string.isRequired,
+    postNew: PropTypes.object.isRequired,
     resetPostCreate: PropTypes.func.isRequired,
     setCategoryForPostCreate: PropTypes.func.isRequired,
     setTextForPostCreate: PropTypes.func.isRequired,
@@ -88,14 +88,14 @@ class PostFormNew extends React.Component {
       title,
       category,
       body,
-      postId
+      postNew
     } = this.props;
     const disabled =
       !author.trim() || !title.trim() || !body.trim() || category === 'none';
 
     let component;
-    if (postId) {
-      component = <Redirect to={`/post/${postId}`} />;
+    if (postNew.id) {
+      component = <Redirect to={`/${postNew.category}/${postNew.id}`} />;
     } else {
       component = (
         <StyledNew>
@@ -162,7 +162,7 @@ const mapStateToProps = state => ({
   title: state.postCreate.title,
   body: state.postCreate.body,
   category: state.postCreate.category,
-  postId: state.postCreate.postId
+  postNew: state.postCreate.postNew
 });
 
 export default connect(mapStateToProps, {

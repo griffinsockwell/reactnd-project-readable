@@ -20,7 +20,7 @@ export const postCreate = values => async dispatch => {
   try {
     const res = await postNewPost(values);
     const post = await res.json();
-    dispatch({ type: types.POST_CREATE_SUCCESS, payload: post.id });
+    dispatch({ type: types.POST_CREATE_SUCCESS, payload: post });
   } catch (e) {
     dispatch({ type: types.POST_CREATE_ERROR, payload: e.message });
   }

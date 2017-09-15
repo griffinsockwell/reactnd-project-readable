@@ -102,7 +102,7 @@ class Header extends React.Component {
     } else {
       displayCategories = categories.map(category => (
         <StyledCategoryLink
-          to={`/category/${category.name}`}
+          to={`/${category.name}`}
           key={category.name}
           name={category.name}
         >

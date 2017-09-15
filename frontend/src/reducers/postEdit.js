@@ -8,7 +8,7 @@ const initialState = {
   errorSubmit: '',
   title: '',
   body: '',
-  postId: ''
+  postEdited: {}
 };
 
 export default (state = initialState, action) => {
@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
     case types.POST_EDIT_SUBMITTING:
       return { ...state, submitting: true };
     case types.POST_EDIT_SUCCESS:
-      return { ...state, postId: action.payload };
+      return { ...state, postEdited: action.payload };
     case types.POST_EDIT_ERROR:
       return { ...state, submitting: false, errorSubmit: action.payload };
     case types.POST_EDIT_SET_TEXT:

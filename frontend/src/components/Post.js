@@ -53,8 +53,8 @@ class Post extends React.Component {
   };
 
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.fetchPost(id);
+    const { post_id } = this.props.match.params;
+    this.props.fetchPost(post_id);
   }
 
   componentWillUnmount() {

@@ -28,10 +28,10 @@ const App = () => (
       <StyledContent>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/category/:category" component={Category} />
           <Route path="/new-post" component={PostFormNew} />
-          <Route path="/post/:id" exact component={Post} />
-          <Route path="/post/:id/edit" component={PostFormEdit} />
+          <Route path="/:category" exact component={Category} />
+          <Route path="/:category/:post_id" exact component={Post} />
+          <Route path="/:category/:post_id/edit" component={PostFormEdit} />
           <Route component={NotFound} />
         </Switch>
       </StyledContent>

@@ -120,10 +120,10 @@ class PostListItem extends React.Component {
 
           <StyledPostInfo>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <StyledPostLink to={`/post/${post.id}`}>
+              <StyledPostLink to={`/${post.category}/${post.id}`}>
                 {post.title}
               </StyledPostLink>
-              <StyledEdit to={`/post/${post.id}/edit`}>
+              <StyledEdit to={`/${post.category}/${post.id}/edit`}>
                 <i className="material-icons">edit</i>
               </StyledEdit>
             </div>
@@ -132,10 +132,7 @@ class PostListItem extends React.Component {
               <span>post by</span> <strong>{post.author}</strong>{' '}
               <span>has</span> <strong>{commentCount}</strong>{' '}
               <span>comment{commentCount !== 1 && 's'}</span>{' '}
-              <StyledCategoryLink
-                to={`/category/${post.category}`}
-                name={post.category}
-              >
+              <StyledCategoryLink to={`/${post.category}`} name={post.category}>
                 {post.category.toUpperCase()}
               </StyledCategoryLink>
             </div>

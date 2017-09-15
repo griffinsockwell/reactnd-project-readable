@@ -23,7 +23,7 @@ export const postEdit = (values, postId) => async dispatch => {
   try {
     const res = await putEditPost(values, postId);
     const post = await res.json();
-    dispatch({ type: types.POST_EDIT_SUCCESS, payload: post.id });
+    dispatch({ type: types.POST_EDIT_SUCCESS, payload: post });
   } catch (e) {
     dispatch({ type: types.POST_EDIT_ERROR, payload: e.message });
   }

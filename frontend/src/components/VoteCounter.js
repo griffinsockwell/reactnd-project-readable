@@ -29,7 +29,7 @@ const StyledVoteCounter = styled.div`
 
 class VoteCounter extends React.Component {
   static propTypes = {
-    isPost: PropTypes.bool.isRequired,
+    isPost: PropTypes.bool,
     item: PropTypes.object.isRequired,
     voteForComment: PropTypes.func.isRequired,
     voteForPost: PropTypes.func.isRequired

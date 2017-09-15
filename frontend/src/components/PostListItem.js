@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 // actions
-import { removePost } from '../actions';
+import { removePost, commentsForPost } from '../actions';
 // components
 import VoteCounter from './VoteCounter';
 // utils
@@ -48,6 +48,9 @@ const StyledPostInfo = styled.div`
     color: #9b9b9b;
     font-size: 16px;
   }
+  strong {
+    color: #7a7a7a;
+  }
 `;
 const StyledDate = styled.div`
   display: flex;
@@ -86,6 +89,11 @@ const StyledDelete = styled.button`
 `;
 
 class PostListItem extends React.Component {
+  componentDidMount() {
+    const { post, commentsForPost } = this.props;
+    commentsForPost(post);
+  }
+
   handleRemove = () => {
     const { post, removePost } = this.props;
     removePost(post);
@@ -93,10 +101,12 @@ class PostListItem extends React.Component {
 
   render() {
     const { post } = this.props;
+
     let component;
     if (post.deleted) {
       component = <div />;
     } else {
+      const commentCount = post.comments ? post.comments.length : 0;
       component = (
         <StyledListItem>
           <VoteCounter item={post} isPost />
@@ -110,8 +120,11 @@ class PostListItem extends React.Component {
                 <i className="material-icons">edit</i>
               </StyledEdit>
             </div>
+
             <div>
-              <span>post by {post.author}</span>{' '}
+              <span>post by</span> <strong>{post.author}</strong>{' '}
+              <span>has</span> <strong>{commentCount}</strong>{' '}
+              <span>comment{commentCount !== 1 && 's'}</span>{' '}
               <StyledCategoryLink
                 to={`/category/${post.category}`}
                 name={post.category}
@@ -139,4 +152,6 @@ class PostListItem extends React.Component {
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, { removePost })(PostListItem);
+export default connect(mapStateToProps, { removePost, commentsForPost })(
+  PostListItem
+);

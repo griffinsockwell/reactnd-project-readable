@@ -110,3 +110,6 @@ export const postCommentsVote = (commentId, option) =>
     },
     body: JSON.stringify({ option })
   });
+
+export const getPostsComments = postId =>
+  fetch(`${api}/posts/${postId}/comments`, { headers });

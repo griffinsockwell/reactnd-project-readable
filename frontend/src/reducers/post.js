@@ -30,6 +30,26 @@ export default (state = initialState, action) => {
     case types.POSTS_VOTE:
       const postToVote = action.payload;
       return { ...state, post: postToVote };
+    case types.POSTS_COMMENTS:
+      const comments = action.payload;
+      const post = { ...state.post, comments };
+      return { ...state, post };
+    case types.COMMENT_CREATE_SUCCESS:
+      const postWithNewComment = {
+        ...state.post,
+        comments: [...state.post.comments, action.payload]
+      };
+      return { ...state, post: postWithNewComment };
+    case types.COMMENTS_DELETE:
+      const commentToDelete = action.payload;
+      const filteredComments = state.post.comments.filter(
+        c => c.id !== commentToDelete.id
+      );
+      const postWithDeletedComment = {
+        ...state.post,
+        comments: filteredComments
+      };
+      return { ...state, post: postWithDeletedComment };
     default:
       return state;
   }

@@ -53,3 +53,4 @@ export const RESET_POSTS = 'RESET_POSTS';
 export const POSTS_SET_ORDER = 'POSTS_SET_ORDER';
 export const POSTS_DELETE = 'POSTS_DELETE';
 export const POSTS_VOTE = 'POSTS_VOTE';
+export const POSTS_COMMENTS = 'POSTS_COMMENTS';

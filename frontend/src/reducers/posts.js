@@ -36,6 +36,19 @@ export default (state = initialState, action) => {
       const postToVote = action.payload;
       const filteredPostsVote = state.posts.filter(p => p.id !== postToVote.id);
       return { ...state, posts: [...filteredPostsVote, postToVote] };
+    case types.POSTS_COMMENTS:
+      const comments = action.payload;
+      if (comments.length) {
+        const postArray = state.posts.filter(
+          p => p.id === comments[0].parentId
+        );
+        const post = postArray[0];
+        const addPost = { ...post, comments };
+        const filteredPostsComments = state.posts.filter(p => p.id !== post.id);
+        return { ...state, posts: [...filteredPostsComments, addPost] };
+      } else {
+        return state;
+      }
     default:
       return state;
   }

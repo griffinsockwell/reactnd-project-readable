@@ -43,9 +43,15 @@ export default (state = initialState, action) => {
           p => p.id === comments[0].parentId
         );
         const post = postArray[0];
-        const addPost = { ...post, comments };
-        const filteredPostsComments = state.posts.filter(p => p.id !== post.id);
-        return { ...state, posts: [...filteredPostsComments, addPost] };
+        if (post) {
+          const addPost = { ...post, comments };
+          const filteredPostsComments = state.posts.filter(
+            p => p.id !== post.id
+          );
+          return { ...state, posts: [...filteredPostsComments, addPost] };
+        } else {
+          return state;
+        }
       } else {
         return state;
       }

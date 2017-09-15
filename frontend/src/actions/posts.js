@@ -59,6 +59,6 @@ export const commentsForPost = post => async dispatch => {
     const comments = await res.json();
     dispatch({ type: types.POSTS_COMMENTS, payload: comments });
   } catch (e) {
-    console.log(e.message);
+    console.log(e);
   }
 };

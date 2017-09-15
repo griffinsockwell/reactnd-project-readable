@@ -13,6 +13,8 @@ import Loading from '../common/Loading';
 import getColor from '../utils/getColor';
 
 const StyledHeader = styled.div`
+  position: relative;
+  z-index: 1;
   height: 60px;
   display: flex;
   align-items: center;
